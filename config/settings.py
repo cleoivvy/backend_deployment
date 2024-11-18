@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import find_dotenv, load_dotenv
+import dj_database_url
 
 load_dotenv(find_dotenv())
 
@@ -114,15 +115,24 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.getenv (''),
+#         'USER': os.getenv(''),
+#         'HOST': os.getenv(''),
+#         'PASSWORD': os.getenv(''),
+#         'PORT': os.getenv(''),
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.getenv (''),
-        'USER': os.getenv(''),
-        'HOST': os.getenv(''),
-        'PASSWORD': os.getenv(''),
-        'PORT': os.getenv(''),
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default=os.getenv("db_url"),
+        conn_max_age=600
+    )
 }
 
 
