@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['weather-server-39vm.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','weather-server-39vm.onrender.com']
 
 
 # Application definition
