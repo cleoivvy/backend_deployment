@@ -55,7 +55,7 @@ class WeatherUpdate(models.Model):
      updated_at = models.DateTimeField(auto_now=True, null=True)
      
      def __str__(self):
-         return f"{self.location.get("name")}"
+         return f"{self.location.get('name')}"
      
      def save(self, *args, **kwargs):
          self.slug = slugify(self.country)
