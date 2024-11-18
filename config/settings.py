@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'accounts',
+    'corsheaders',
     'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt.token_blacklist',
@@ -54,7 +55,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhitenoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -62,6 +65,30 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+CORS_ORIGIN_ALL_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+CORS_ALLOW_METHODS =(
+    "Delete",
+    "Get",
+    "Options",
+    "Patch",
+    "Post",
+    "Put",
+)
+
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "user-agent",
+    "content-Type",
+    "authorization",
+    "x-Requested-With",
+    "x-csrf-token"
+)
 
 TEMPLATES = [
     {
@@ -90,7 +117,11 @@ AUTH_USER_MODEL = 'accounts.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.getenv (''),
+        'USER': os.getenv(''),
+        'HOST': os.getenv(''),
+        'PASSWORD': os.getenv(''),
+        'PORT': os.getenv(''),
     }
 }
 
@@ -119,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Lagos'
 
 USE_I18N = True
 
@@ -130,6 +161,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
